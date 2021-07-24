@@ -1,6 +1,6 @@
 # 課題の回答は このファイル をご利用下さい。
 # 回答の出力を確認される際は，「php task.php」をターミナルから実行して下さい。
-
+<?php
 print("#####q1#####".PHP_EOL);
 $names = ["田中", "佐藤", "佐々木", "高橋"];
 
@@ -11,17 +11,23 @@ $names = ["田中", "佐藤", "佐々木", "高橋"];
 
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q2#####".PHP_EOL);
 $array1 = ["dog", "cat", "fish"];
 $array2 = ["bird", "bat", "tiger"];
 
   # 以下に回答を記載
 
-  $array = array_merge(array1,array2);
+  $array = array_merge($array1,$array2);
 
 print_r($array);
 
 echo PHP_EOL;
+?>
+
+<?php
 
 print("#####q3#####".PHP_EOL);
 $numbers = [1, 5, 8, 10, 2, 3, 2, 3, 1, 4, 5, 9];
@@ -30,14 +36,17 @@ $numbers = [1, 5, 8, 10, 2, 3, 2, 3, 1, 4, 5, 9];
 
 $count = 0;
 foreach($numbers as $number){
-if($number === 3){
-$count++;
+ if($number === 3){
+ $count++;
 }
 }
 print_r($count . "回".PHP_EOL);
 
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q4#####".PHP_EOL);
 $sports = ["サッカー", "フットサル", null, "野球", "バスケ", null, "バレー"];
 
@@ -49,6 +58,9 @@ print_r($sports);
 
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q5#####".PHP_EOL);
 $array1 = [];
 $array2 = [1, 5, 8, 10];
@@ -60,6 +72,9 @@ echo PHP_EOL;
 var_export(empty($array2));
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q6#####".PHP_EOL);
 $numbers1 = [1, 2, 3, 4, 5];
 
@@ -69,13 +84,16 @@ $numbers2 = [];
 //$numbers2を定義
 //foreach作成 $numbers1の中に$numberを定義 $numbers1×10を$numberを代入していく。array_pushで$numberを$numbers2に代入していく。$numbers2をプリント。ßß
 foreach($numbers1 as $number){
-$number *= 10;
-array_push($numbers2,$number);
-}
+      $number *= 10;
+      array_push($numbers2,$number);
+      }
 print_r($numbers2);
 
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q7#####".PHP_EOL);
 $array = ["1", "2", "3", "4", "5"];
 
@@ -87,6 +105,9 @@ var_dump($array);
 
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q8#####".PHP_EOL);
 $programming_languages = ["php", "ruby", "python", "javascript"];
 
@@ -101,33 +122,104 @@ print_r($upper_case_programming_languages);
 
 echo PHP_EOL;
 
+?>
+
+<?php
+
 print("#####q9#####".PHP_EOL);
 $names = ["田中", "佐藤", "佐々木", "高橋"];
 
   # 以下に回答を記載
+// function q9($mem_no){
+//return "会員No.{$mem_no}";
+//}
+
+//$no = [1,2,3,4,];
+
+//$ok = array_map('q9',$no,$names);
+//print_r($ok);正常に動かない
+
+$names = ["田中", "佐藤", "佐々木", "高橋"];
+
+$names2 = [];
+foreach($names as $key => $name){
+    $number = $key + 1;
+    $name2 = "会員No.".$number." ".$name;
+    array_push($names2,$name2);
+}
+print_r($names2);
 
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q10#####".PHP_EOL);
 $foods = ["いか", "たこ", "うに", "しゃけ", "うにぎり", "うに軍艦", "うに丼", "高級なうに"];
 
   # 以下に回答を記載
 
+foreach($foods as $food){
+  if(preg_match("/うに/","$food")){
+    echo "好物です",PHP_EOL;
+  }else{
+    echo "まぁまぁ好きです",PHP_EOL;
+  }
+
+}
+
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q11#####".PHP_EOL);
 $sports = ["サッカー", "バスケ", "野球", ["フットサル", "野球"], "水泳", "ハンドボール", ["卓球", "サッカー", "ボルダリング"]];
 
   # 以下に回答を記載
 
+//["サッカー"(変数), "バスケ"(変数), "野球"(変数), ["フットサル", "野球"](配列), "水泳"(変数), "ハンドボール"(変数), ["卓球", "サッカー", "ボルダリング"](配列)];
+$sports2 = [];
+foreach($sports as $key => $sport){
+    if(is_array($sport)){
+        //配列はマージされて$sports2の中に$sportが入る
+        $sports2 = array_merge($sports2, $sport);
+    }else{
+        //配列でないものはプッシュされて$sports2の中に$sportが入る
+        array_push($sports2, $sport);
+    }
+}
+//ユニークで重複したものは取除かれる。番号は歯抜けのまま
+$sports2 = array_unique($sports2);
+//バリューで配列を渡す？？上で消して番号そのままだから並び直してもらう
+$sports2 = array_values($sports2);
+$sports3 = [];
+foreach($sports2 as $key => $sport){
+    $number = $key + 1;
+    $sport3 = "No.".$number." ".$sport;
+    array_push($sports3, $sport3);
+}
+echo("ユーザの趣味一覧".PHP_EOL);
+foreach($sports3 as $sport){
+    echo($sport.PHP_EOL);
+}
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q12#####".PHP_EOL);
 $data = ["user" => ["name" => "satou", "age" => 33]];
 
   # 以下に回答を記載
 
+  echo($data["user"]["name"]);
+
 echo PHP_EOL;
+
+?>
+
+<?php
 
 print("#####q13#####".PHP_EOL);
 $user_data = ["name" => "神里", "age" => 31, "address" => "埼玉"];
@@ -135,22 +227,59 @@ $update_data = ["age" => 32, "address" => "沖縄"];
 
   # 以下に回答を記載
 
+  $user_data = $update_data + $user_data;
+
+print_r($user_data);
+
 echo PHP_EOL;
+
+?>
+
+<?php
 
 print("#####q14#####".PHP_EOL);
 $data = ["name" => "satou", "age" => 33, "address" => "saitama", "hobby" => "soccer", "email" => "hoge@fuga.com"];
 
   # 以下に回答を記載
 
+//foreachで振り分けて連想配列を崩す。変数に詰め直して出力
+$data1 = [];
+foreach($data as $data2){
+    array_push($data1, $data2);
+}
+
+print_r($data1);
+
+
 echo PHP_EOL;
+
+?>
+
+<?php
 
 print("#####q15#####".PHP_EOL);
 $data1 = ["name" => "saitou", "hobby" => "soccer", "age" => 33, "role" => "admin"];
 $data2 = ["name" => "yamada", "hobby" => "baseball", "role" => "normal"];
 
+//array_key_exists   指定したキーまたは添字が配列にあるかどうかを調べる
+//in_array  配列内に存在するか調べる。連想配列には効かないらしい。
   # 以下に回答を記載
+if(array_key_exists("age",$data1)){
+    echo"OK".PHP_EOL;
+}else{
+    echo"NG".PHP_EOL;
+}
 
+if(array_key_exists("age",$data2)){
+    echo"OK".PHP_EOL;
+}else{
+    echo"NG".PHP_EOL;
+}
 echo PHP_EOL;
+
+?>
+
+<?php
 
 print("#####q16#####".PHP_EOL);
 $users = [
@@ -161,9 +290,17 @@ $users = [
 ];
 
   # 以下に回答を記載
+//$変数 as $key => $値で取り出し
+//Q12と同じ方法で出力
+foreach($users as $key => $user)
+
+print_r("私の名前は".$user["name"]."です。"."年齢は".$user["age"]."歳です。".PHP_EOL);
 
 echo PHP_EOL;
 
+?>
+
+<?php
 print("#####q17#####".PHP_EOL);
 class User
 {
@@ -180,7 +317,9 @@ print("-------------".PHP_EOL);
 $user2->info();
 
 echo PHP_EOL;
+?>
 
+<?php
 print("#####q18#####".PHP_EOL);
 
   # コードを追加
@@ -192,6 +331,10 @@ $man1->introduce();
 $man2->introduce();
 
 echo PHP_EOL;
+
+?>
+
+<?php
 
 print("#####q19#####".PHP_EOL);
 class Item{
@@ -209,6 +352,10 @@ $book = new Item("ゼロ秒思考");
 print($book->name.PHP_EOL);
 
 echo PHP_EOL;
+
+?>
+
+<?php
 
 print("#####q20#####".PHP_EOL);
 class Human
@@ -239,3 +386,5 @@ foreach($humans as $human){
 }
 
 echo PHP_EOL;
+
+?>

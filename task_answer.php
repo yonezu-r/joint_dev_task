@@ -33,9 +33,9 @@ $numbers = [1, 5, 8, 10, 2, 3, 2, 3, 1, 4, 5, 9];
 
 $count = 0;
 foreach($numbers as $number){
-   if($number === 3){
-      $count++;
-   }
+if($number === 3)
+{$count++;
+  }
 }
 print_r($count . "回".PHP_EOL);
 
