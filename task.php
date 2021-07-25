@@ -35,9 +35,9 @@ $numbers = [1, 5, 8, 10, 2, 3, 2, 3, 1, 4, 5, 9];
   # 以下に回答を記載
 
 $count = 0;
-foreach($numbers as $number){
- if($number === 3){
- $count++;
+foreach ( $numbers as $number ){
+ if ( $number === 3){
+  $count++;
 }
 }
 print_r($count . "回".PHP_EOL);
@@ -82,7 +82,7 @@ $numbers1 = [1, 2, 3, 4, 5];
 
 $numbers2 = [];
 //$numbers2を定義
-//foreach作成 $numbers1の中に$numberを定義 $numbers1×10を$numberを代入していく。array_pushで$numberを$numbers2に代入していく。$numbers2をプリント。ßß
+//foreach作成 $numbers1の中に$numberを定義 $numbers1×10を$numberを代入していく。array_pushで$numberを$numbers2に代入していく。$numbers2をプリント。
 foreach($numbers1 as $number){
       $number *= 10;
       array_push($numbers2,$number);
@@ -130,14 +130,29 @@ print("#####q9#####".PHP_EOL);
 $names = ["田中", "佐藤", "佐々木", "高橋"];
 
   # 以下に回答を記載
-// function q9($mem_no){
-//return "会員No.{$mem_no}";
+//$names = ['田中', '佐藤', '佐々木', '高橋'];
+
+//関数を定義
+//function 関数名(引数) {
+//return "会員No.{戻り値} {戻り値}"
 //}
+//どんな感じで表示させたいか定義する
+//function q9($no, $names){
+//return "会員No.{$no} {$names}";
+//}
+//$noを定義
+//$no = [1, 2, 3, 4];
 
-//$no = [1,2,3,4,];
+//$okを定義
+//array_map( コールバック関数名 , $配列1 [, $配列2, $… ] )
+//第一引数にはコールバック関数名を渡します。
+//第二引数からはコールバック関数を適用する配列を渡し、カンマ(,)で区切ることで複数の配列を引数で渡すことが可能です。
+//$ok = array_map('q9(コールバック関数名)', $no(配列1), $names(配列2));
+//$ok = "会員No.{$no} {$names}"でループ
+//              
+//$ok = array_map('q9', $no, $names);
 
-//$ok = array_map('q9',$no,$names);
-//print_r($ok);正常に動かない
+//print_r($ok)
 
 $names = ["田中", "佐藤", "佐々木", "高橋"];
 
@@ -304,14 +319,50 @@ echo PHP_EOL;
 print("#####q17#####".PHP_EOL);
 class User
 {
-
   # コードを追加
+
+//private	そのクラス自身からのみ可能
+//protected	そのクラス自身、そのクラスの親クラス、そのクラスを継承した孫クラスから可能 継承という機能に関わりがある
+//public	どのクラスからでも可能
+//アクセス修飾子という
+// アクセス修飾子 $プロパティ名;
+    private $name;
+    private $age;
+    private $gender;
+
+    //↑のクラスに定義したデータをプロパティという。メンバ変数、インスタンス変数、フィールドともいう
+    //　例　UserClassはnameをプロパティに持つ
+
+    //メソッドを定義（ほぼ関数）
+    //$user_name, $user_age, $user_genderをコンストラクタに入れる。
+    //仮に$name と入れても private $name;とpublic function __construct($name）は別物となるらしい。
+    //function __constructを定義することでコンストラクタを定義する(中身を入れる)
+    //3つを引数にとれたが、別物なので代入する
+    //
+
+    public function __construct($user_name, $user_age, $user_gender) {
+        $this->name = $user_name;
+        $this->age = $user_age;
+        $this->gender = $user_gender;
+    }
+
+    public function info() {
+        print("名前:".$this->name.PHP_EOL);
+        print("年齢:".$this->age.PHP_EOL);
+        print("性別:".$this->gender.PHP_EOL);
+    }
 
 }
 
+//メソッドの中にコンストラクタというものがある
+//コンストラクタの呼び出し
+// 変数 = new クラス名();
+//入力するとオブジェクトが返ってくる。クラスの中の材料
 $user1 = new User("神里", 32, "男");
 $user2 = new User("あじー", 32, "男");
 
+
+//振る舞いを呼び出す
 $user1->info();
 print("-------------".PHP_EOL);
 $user2->info();
@@ -323,6 +374,23 @@ echo PHP_EOL;
 print("#####q18#####".PHP_EOL);
 
   # コードを追加
+class Man{
+    private $name;
+    private $age;
+
+    public function __construct($user_name, $user_age) {
+      $this->name = $user_name;
+      $this->age = $user_age;
+    }
+//$this->name.などは""で囲わなくて良い
+    public function introduce() {
+      if ( $this->age > 30){
+        print("こんにちは，". $this->name. "と申します。宜しくお願いいたします。".PHP_EOL);
+      }else {
+        print("はいさいまいど〜，". $this->name. "です！！！".PHP_EOL);
+      }
+    }
+}
 
 $man1 = new Man("あじー", 32);
 $man2 = new Man("ゆたぼん", 10);
@@ -340,14 +408,17 @@ print("#####q19#####".PHP_EOL);
 class Item{
   # 以下を修正して下さい
 
-  protected $name;
+  //protected $name;
+  public $name;
 
   function __construct($book_name){
     $this->name = $book_name;
   }
 }
   # 以下は変更しないで下さい
-
+//$book->nameだからpublicじゃないと呼び出せない❌
+//$book_nameに変えたら出力するがまっさらで出力
+//わからない
 $book = new Item("ゼロ秒思考");
 print($book->name.PHP_EOL);
 
@@ -356,19 +427,44 @@ echo PHP_EOL;
 ?>
 
 <?php
-
 print("#####q20#####".PHP_EOL);
 class Human
 {
 
-  # コードを追加
+    public $name;
+    public $age;
+
+    function __construct($human_name, $human_age) {
+        $this->name = $human_name;
+        $this->age = $human_age;
+    }
 
 }
 
 class Zoo
 {
 
-  # コードを追加
+    protected $name;
+    protected $entry_fee;
+
+    function __construct($zoo_name, $zoo_entry_fee) {
+        $this->name = $zoo_name;
+        $this->entry_fee = $zoo_entry_fee;
+    }
+//Zooクラスを回して代入。まだ完了しない。
+//Humanクラスを回して初めて完了。出力
+//
+    function info_entry_fee(Human $human) {
+        if($human->age <= 5){
+            print($human->name."さんの入場料金は ".$this->entry_fee["infant"]." 円です。".PHP_EOL);
+        }elseif($human->age <= 12){
+            print($human->name."さんの入場料金は ".$this->entry_fee["children"]." 円です。".PHP_EOL);
+        }elseif($human->age <= 64){
+            print($human->name."さんの入場料金は ".$this->entry_fee["adult"]." 円です。".PHP_EOL);
+        }elseif($human->age <= 120){
+            print($human->name."さんの入場料金は ".$this->entry_fee["senior"]." 円です。".PHP_EOL);
+        }
+    }
 
 }
 
@@ -382,9 +478,36 @@ $human4 = new Human("ぎん", 108);
 $humans = [$human1, $human2, $human3, $human4];
 
 foreach($humans as $human){
-  $zoo->info_entry_fee($human);
+    $zoo->info_entry_fee($human);
 }
 
 echo PHP_EOL;
+
+?>
+
+<?php
+print("#####q21#####".PHP_EOL);
+
+for ( $i = 1 ; $i <= 30 ;$i++){
+    if ( $i % 21 ==0){
+      echo "FizzHoge";
+      echo PHP_EOL;
+    }elseif ( $i % 15 ==0){
+      echo "FizzBuzz";
+      echo PHP_EOL;
+    }elseif ( $i % 3 ==0){
+      echo "Fizz";
+      echo PHP_EOL;
+    }elseif ( $i % 5 ==0){
+      echo "Buzz";
+      echo PHP_EOL;
+    }elseif ( $i % 7 ==0){
+      echo "Hoge";
+      echo PHP_EOL;
+    }else {
+      echo $i;
+      echo PHP_EOL;
+    }
+  }
 
 ?>
