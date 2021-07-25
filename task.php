@@ -489,20 +489,26 @@ echo PHP_EOL;
 print("#####q21#####".PHP_EOL);
 
 for ( $i = 1 ; $i <= 30 ;$i++){
-    if ( $i % 21 ==0){
+    if( $i % 105 == 0){
+      echo 'FizzBuzzHoge';
+      echo PHP_EOL;
+    }elseif( $i % 35 ==0){
+      echo 'BuzzHoge';
+      echo PHP_EOL;  
+    } elseif ( $i % 21 ==0){ 
       echo "FizzHoge";
       echo PHP_EOL;
     }elseif ( $i % 15 ==0){
       echo "FizzBuzz";
       echo PHP_EOL;
-    }elseif ( $i % 3 ==0){
-      echo "Fizz";
+    }elseif ( $i % 7 ==0){
+      echo "Hoge";
       echo PHP_EOL;
     }elseif ( $i % 5 ==0){
       echo "Buzz";
       echo PHP_EOL;
-    }elseif ( $i % 7 ==0){
-      echo "Hoge";
+    }elseif ( $i % 3 ==0){
+      echo "Fizz";
       echo PHP_EOL;
     }else {
       echo $i;
